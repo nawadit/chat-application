@@ -5,7 +5,9 @@ import { User } from "./entity/User";
 import { AppDataSource } from "./data-source";
 import { QueryFailedError } from "typeorm";
 import signupRouter from "./routes/singup";
+import loginRouter from "./routes/login";
 
+//connecting to database. 
 AppDataSource.initialize()
   .then(() => {
     console.log("AppDataSource Initialized.");
@@ -14,36 +16,26 @@ AppDataSource.initialize()
     console.log(error);
   });
 
+  //loading .env variables
 dotenv.config();
 
+//creating application 
 const app: Express = express();
 const port = process.env.PORT || 3000;
 
+//middleware to parse json body object
 app.use(express.json());
 
+//routers for specific addresses
 app.use("/signup", signupRouter);
+app.use("/login", loginRouter)
 
+//route handler handeling the requests to the homepage
 app.get("/", async (req: Request, res: Response) => {
   res.send("Express + TypeScript Server");
-  const user = new User();
-  user.firstName = "Nawadit";
-  user.lastName = "Sharma";
-  user.email = "nawadit@sharma.com";
-  user.passwordHash = "sl;kdfa";
-
-  try {
-    await AppDataSource.manager.save(user);
-  } catch (error) {
-    if (error instanceof QueryFailedError) {
-      console.error("Query Failed:", error); // Access specific properties
-      console.error("SQL:", error.query); // Query that caused the error
-      console.error("Parameters:", error.parameters); // Parameters passed to the query
-    } else {
-      console.error("Unexpected Error:", error);
-    }
-  }
 });
 
+//starting the server
 app.listen(port, async () => {
   console.log(`[server]: Server is runnin at http://localhost:${port}`);
 });
