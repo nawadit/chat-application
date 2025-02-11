@@ -9,6 +9,7 @@ import loginRouter from "./routes/login";
 import searchUserRotuer from "./routes/searchUser";
 import http from "http";
 import sendMessageRouter from "./routes/sendMessage";
+import { recieveMessagesRouter } from "./routes/recieveMessage";
 
 //connecting to database.
 AppDataSource.initialize()
@@ -38,7 +39,8 @@ app.use(express.json());
 app.use("/signup", signupRouter);
 app.use("/login", loginRouter);
 app.use("/searchUser", searchUserRotuer);
-app.use("/sendMessage", sendMessageRouter)
+app.use("/sendMessage", sendMessageRouter);
+app.use("/recieveMessage", recieveMessagesRouter)
 
 //route handler handeling the requests to the homepage
 app.get("/", async (req: Request, res: Response) => {
