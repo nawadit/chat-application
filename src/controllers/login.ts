@@ -29,7 +29,7 @@ export const login = async (req: Request, res: Response) => {
           .status(500)
           .json({ errorMessage: "Error creating token.", errorCode: 500 });
       } else {
-        res.status(200).json({name:user.firstName +" "+  user.lastName, token });
+        res.status(200).json({id:user.id, name:user.firstName +" "+  user.lastName, token });
       }
     } else {
       res

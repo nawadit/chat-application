@@ -7,7 +7,7 @@ export const AppDataSource = new DataSource({
     host:"localhost",
     port:5432,
     username:"chat_application_admin",
-    password:"chat",
+    password:"newpassword",
     database:"chat_application",
     synchronize: true,
     logging: true,

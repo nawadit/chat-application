@@ -6,6 +6,7 @@ import { AppDataSource } from "./data-source";
 import { QueryFailedError } from "typeorm";
 import signupRouter from "./routes/singup";
 import loginRouter from "./routes/login";
+import searchUserRotuer from "./routes/searchUser";
 
 //connecting to database. 
 AppDataSource.initialize()
@@ -28,7 +29,8 @@ app.use(express.json());
 
 //routers for specific addresses
 app.use("/signup", signupRouter);
-app.use("/login", loginRouter)
+app.use("/login", loginRouter);
+app.use("/searchUser", searchUserRotuer)
 
 //route handler handeling the requests to the homepage
 app.get("/", async (req: Request, res: Response) => {
