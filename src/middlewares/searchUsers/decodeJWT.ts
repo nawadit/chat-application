@@ -17,7 +17,7 @@ export const decodeJWT = (req: Request, res: Response, next: NextFunction) => {
     try {
       console.log("Control has reached the try block.")
       const decode = jwt.verify(recievedJWT, JWT_SECRET);
-      req.body.JWTPayload = decode;
+      req.body.senderId = decode;
       next();
     } catch (err) {
       if (err instanceof Error) {

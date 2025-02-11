@@ -7,8 +7,10 @@ import { QueryFailedError } from "typeorm";
 import signupRouter from "./routes/singup";
 import loginRouter from "./routes/login";
 import searchUserRotuer from "./routes/searchUser";
+import http from "http";
+import sendMessageRouter from "./routes/sendMessage";
 
-//connecting to database. 
+//connecting to database.
 AppDataSource.initialize()
   .then(() => {
     console.log("AppDataSource Initialized.");
@@ -17,12 +19,17 @@ AppDataSource.initialize()
     console.log(error);
   });
 
-  //loading .env variables
+//loading .env variables
 dotenv.config();
 
-//creating application 
+//creating application
 const app: Express = express();
 const port = process.env.PORT || 3000;
+
+// Create HTTP server for Express and WebSocket
+const server = http.createServer(app);
+
+// Initialize Socket.IO
 
 //middleware to parse json body object
 app.use(express.json());
@@ -30,7 +37,8 @@ app.use(express.json());
 //routers for specific addresses
 app.use("/signup", signupRouter);
 app.use("/login", loginRouter);
-app.use("/searchUser", searchUserRotuer)
+app.use("/searchUser", searchUserRotuer);
+app.use("/sendMessage", sendMessageRouter)
 
 //route handler handeling the requests to the homepage
 app.get("/", async (req: Request, res: Response) => {
