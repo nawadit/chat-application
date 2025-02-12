@@ -10,6 +10,7 @@ import searchUserRotuer from "./routes/searchUser";
 import http from "http";
 import sendMessageRouter from "./routes/sendMessage";
 import { recieveMessagesRouter } from "./routes/recieveMessage";
+import { conversationsRouter } from "./routes/conversations";
 
 //connecting to database.
 AppDataSource.initialize()
@@ -41,6 +42,8 @@ app.use("/login", loginRouter);
 app.use("/searchUser", searchUserRotuer);
 app.use("/sendMessage", sendMessageRouter);
 app.use("/recieveMessage", recieveMessagesRouter)
+app.use("/conversations", conversationsRouter )
+// route handler to get all id of people someone has prior conversations with
 
 //route handler handeling the requests to the homepage
 app.get("/", async (req: Request, res: Response) => {
